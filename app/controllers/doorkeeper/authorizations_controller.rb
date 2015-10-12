@@ -6,7 +6,10 @@ module Doorkeeper
       if pre_auth.authorizable?
         if skip_authorization? || matching_token?
           auth = authorization.authorize
-          redirect_to auth.redirect_uri
+          auth_token_response = OAuth::AuthTokenResponse.new(auth.redirect_uri[:code])
+          response.headers.merge!(auth_token_response.headers)
+          render json: auth_token_response.body, status: auth_token_response.status
+          #redirect_to auth.redirect_uri
         else
           render :new
         end
