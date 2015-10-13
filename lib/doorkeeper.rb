@@ -6,6 +6,7 @@ require 'doorkeeper/errors'
 require 'doorkeeper/server'
 require 'doorkeeper/request'
 require 'doorkeeper/validations'
+require 'doorkeeper/rescue_errors'
 
 require 'doorkeeper/oauth/authorization/code'
 require 'doorkeeper/oauth/authorization/token'

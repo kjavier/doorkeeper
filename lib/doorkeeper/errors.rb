@@ -23,5 +23,8 @@ module Doorkeeper
 
     class TokenGeneratorNotFound < DoorkeeperError
     end
+
+    class InvalidProviderDetails < DoorkeeperError
+    end
   end
 end

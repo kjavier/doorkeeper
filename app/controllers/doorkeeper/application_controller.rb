@@ -1,5 +1,6 @@
 module Doorkeeper
   class ApplicationController < ActionController::Base
+    include RescueErrors
     include Helpers::Controller
 
     if ::Rails.version.to_i < 4

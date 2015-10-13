@@ -101,6 +101,8 @@ en:
           revoked: "The access token was revoked"
           expired: "The access token expired"
           unknown: "The access token is invalid"
+        
+        invalid_provider_details: 'Client authentication failed due to unknown provider, no client provider uid included, or no client provider token included.'
 
     flash:
       applications:
