@@ -6,15 +6,25 @@ module Doorkeeper
       if pre_auth.authorizable?
         if skip_authorization? || matching_token?
           auth = authorization.authorize
-          auth_token_response = OAuth::AuthTokenResponse.new(auth.redirect_uri[:code])
-          response.headers.merge!(auth_token_response.headers)
-          render json: auth_token_response.body, status: auth_token_response.status
-          #redirect_to auth.redirect_uri
+
+          if params[:response_type] == 'json'
+            auth_token_response = OAuth::AuthTokenResponse.new(auth.redirect_uri[:code])
+            response.headers.merge!(auth_token_response.headers)
+            render json: auth_token_response.body, status: auth_token_response.status
+          else
+            redirect_to auth.redirect_uri
+          end
         else
           render :new
         end
       else
-        render :error
+        if params[:response_type] == 'json'
+          error_response = OAuth::ErrorResponse.new(name: 'invalid_client')
+          response.headers.merge!(error_response.headers)
+          render json: error_response.body, status: error_response.status
+        else
+          render :error
+        end
       end
     end
 
